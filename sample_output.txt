@@ -1,0 +1,23 @@
+Processing all appointments...
+
+{'appointment_id': 'A001', 'status': 'accepted', 'reason': None, 'bill': {'consultation_fee': 5000, 'test_charges': 2500, 'subtotal': 7500, 'insurance_covered': 2250.0, 'discount': 0, 'final_amount': 5250.0}}
+{'appointment_id': 'A002', 'status': 'accepted', 'reason': None, 'bill': {'consultation_fee': 2000, 'test_charges': 0, 'subtotal': 2000, 'insurance_covered': 0, 'discount': 0, 'final_amount': 2000}}
+{'appointment_id': 'A003', 'status': 'rejected', 'reason': 'Rejected', 'bill': None}
+{'appointment_id': 'A004', 'status': 'accepted', 'reason': None, 'bill': {'consultation_fee': 5000, 'test_charges': 1500, 'subtotal': 6500, 'insurance_covered': 0, 'discount': 650.0, 'final_amount': 5850.0}}
+
+==================================================
+                 CLINIC DASHBOARD
+==================================================
+Total Patients: 4
+Total Doctors: 3
+Total Appointments: 4
+Completed: 3
+Cancelled: 1
+Pending: 0
+Total Consultation Revenue: $12000
+Total Test Revenue: $4000
+Total Insurance Coverage: $2250.0
+Total Patient Revenue: $13100.0
+Most Requested Specialization: Cardiology
+Highest Spending Patient: Usman Ali
+==================================================
