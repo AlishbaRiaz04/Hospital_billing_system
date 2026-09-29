@@ -1,0 +1,47 @@
+[
+    {
+        "appointment_id": "A001",
+        "status": "accepted",
+        "reason": null,
+        "bill": {
+            "consultation_fee": 5000,
+            "test_charges": 2500,
+            "subtotal": 7500,
+            "insurance_covered": 2250.0,
+            "discount": 0,
+            "final_amount": 5250.0
+        }
+    },
+    {
+        "appointment_id": "A002",
+        "status": "accepted",
+        "reason": null,
+        "bill": {
+            "consultation_fee": 2000,
+            "test_charges": 0,
+            "subtotal": 2000,
+            "insurance_covered": 0,
+            "discount": 0,
+            "final_amount": 2000
+        }
+    },
+    {
+        "appointment_id": "A003",
+        "status": "rejected",
+        "reason": "Rejected",
+        "bill": null
+    },
+    {
+        "appointment_id": "A004",
+        "status": "accepted",
+        "reason": null,
+        "bill": {
+            "consultation_fee": 5000,
+            "test_charges": 1500,
+            "subtotal": 6500,
+            "insurance_covered": 0,
+            "discount": 650.0,
+            "final_amount": 5850.0
+        }
+    }
+]

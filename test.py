@@ -1,15 +1,21 @@
 """
 Edge case test cases for the Clinic Management System.
 Covers every edge case listed in Section 14 of the assignment.
-Run this file directly: python test_cases.py
+Run this file directly: python test.py
 """
 
-from main import (
-    patients, doctors, appointments, test_prices,
-    validate_patient, validate_doctor, validate_tests, validate_appointment,
-    apply_senior_discount, cancel_appointment,
-    generate_doctor_report, generate_patient_report
-)
+from validation import validate_patient, validate_doctor, validate_tests, validate_appointment
+from billing import apply_senior_discount, cancel_appointment
+from reports import generate_patient_report, generate_doctor_report
+from models import create_patients, create_appointment, create_doctors, Doctor, Appointment
+import json
+
+with open("input_data.json", "r") as file:
+    data = json.load(file)
+    patients = create_patients(data["patients"])
+    doctors = create_doctors(data["doctors"])
+    appointments = create_appointment(data["appointments"])
+    test_prices = data["test_prices"]
 
 print("=" * 50)
 print("EDGE CASE TESTS")
@@ -25,11 +31,11 @@ print(validate_doctor("D999", doctors))
 
 # 3. Doctor unavailable
 print("\n[3] Doctor unavailable:")
-doctors["D001"]["available"] = False
-test_appt = {"appointment_id": "T1", "patient_id": "P001", "doctor_id": "D001",
-             "status": "pending", "tests": []}
+doctors["D001"].available = False
+test_appt = Appointment(appointment_id="T1", patient_id="P001", doctor_id="D001",
+                         status="pending", tests=[])
 print(validate_appointment(test_appt, patients, doctors, test_prices))
-doctors["D001"]["available"] = True  # restore
+doctors["D001"].available = True  # restore
 
 # 4. Invalid test name
 print("\n[4] Invalid test name:")
@@ -49,8 +55,8 @@ print(apply_senior_discount(-5, 1000))
 
 # 8. Invalid appointment status
 print("\n[8] Invalid/unknown appointment status:")
-test_appt_bad_status = {"appointment_id": "T2", "patient_id": "P001", "doctor_id": "D001",
-                         "status": "unknown_status", "tests": []}
+test_appt_bad_status = Appointment(appointment_id="T2", patient_id="P001", doctor_id="D001",
+                                    status="unknown_status", tests=[])
 print(validate_appointment(test_appt_bad_status, patients, doctors, test_prices))
 
 # 9. Cancel a completed appointment (should be rejected)
@@ -63,14 +69,15 @@ print(validate_appointment(appointments[2], patients, doctors, test_prices))
 
 # 11. Cancel the same appointment twice
 print("\n[11] Cancel same appointment twice:")
-test_pending = {"appointment_id": "T3", "patient_id": "P001", "doctor_id": "D001",
-                 "status": "pending", "tests": []}
+test_pending = Appointment(appointment_id="T3", patient_id="P001", doctor_id="D001",
+                            status="pending", tests=[])
 print("First cancel:", cancel_appointment(test_pending))
 print("Second cancel:", cancel_appointment(test_pending))
 
 # 12. Doctor with no appointments
 print("\n[12] Doctor with no appointments:")
-doctors["D999"] = {"name": "Dr. Test", "specialization": "Test", "fee": 1000, "available": True}
+doctors["D999"] = Doctor(doctor_id="D999", name="Dr. Test", specialization="Test",
+                          fee=1000, available=True)
 report = generate_doctor_report(appointments, patients, doctors, test_prices)
 print(report["per_doctor"]["D999"])
 del doctors["D999"]  # clean up
